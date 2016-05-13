@@ -63,12 +63,17 @@ def extract_data(parameters, start_time, stop_time, interval, print_output, outp
             if count>4:
 
                 (file_hr,file_mi)=(int(stuff[0][:2]),int(stuff[0][2:4]))
-                if ind_time<len(time_list[ind_file]) and time_list[ind_file][ind_time][2:]==(file_hr,file_mi):
-                    outp+="\n"+",".join([repr(foo) for foo in time_list[ind_file][ind_time]])+","+",".join([stuff[ind] for ind in parameter_indices])
-                    ind_time+=1
-                
-        if ind_time<len(time_list[ind_file]):#didn't find all time instances.
-            raise Exception("Time "+repr(time_list[ind_file][ind_time])+" not found.")
+                while ind_time<len(time_list[ind_file]) and time_list[ind_file][ind_time][2:]<=(file_hr,file_mi):
+                        outp+="\n"+",".join([repr(foo) for foo in time_list[ind_file][ind_time]])+","+",".join([stuff[ind] for ind in parameter_indices])
+                        if time_list[ind_file][ind_time][2:]<(file_hr,file_mi):
+                            outp+=",(wrote data for "+"-".join([repr(foo) for foo in time_list[ind_file][ind_time][:2]+(file_hr,file_mi)])+" instead)"
+                        ind_time+=1
+
+        while ind_time<len(time_list[ind_file]):#didn't find all time instances.
+            outp+="\n"+",".join([repr(foo) for foo in time_list[ind_file][ind_time]])+","+",".join([stuff[ind] for ind in parameter_indices])
+            outp+=",(wrote data for "+"-".join([repr(foo) for foo in time_list[ind_file][ind_time][:2]+(file_hr,file_mi)])+" instead)"
+            ind_time+=1
+
         ff.close()
 
     if output_file!=None:
