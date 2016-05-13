@@ -1,0 +1,12 @@
+You already need to have Python installed. 
+
+First save the programs main_met_data.py and extract_met_data.py in the same directory as the .MET files.
+
+Modify the extract_met_data.py to suit your own needs.
+
+Then run python extract_met_data.py
+
+For instance, on a Bash terminal in a Linux system, just cd to the relevant directory, and type
+python extract_met_data.py
+
+(With the given examples, this will output some data from Aug-11 to Aug-13 to the screen, and create a huge csv file with per-minute data from Aug-11 to Oct-11.)
